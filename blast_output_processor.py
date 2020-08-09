@@ -5,7 +5,6 @@ def get_data():
     array = []
     for file in os.listdir(folder):
         path = folder + '\\' + file
-        print(path)
         # loops through each file in folder path = file path
         with open(path, 'r') as f:
             lines = f.readlines()
