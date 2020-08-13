@@ -1,6 +1,6 @@
 def get_data():
     import os
-    folder = input('Folder in which BLAST outputs are stored:')
+    folder = r'C:\Users\Rhino\PycharmProjects\sfam\blast_outputs'
     global array
     array = []
     for file in os.listdir(folder):
