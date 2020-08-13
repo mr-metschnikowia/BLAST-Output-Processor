@@ -104,10 +104,11 @@ def get_data():
         # program, reference, accession, % id, coverage, k, gene start and gene end are obtained for each row in hit table
         # information for each row is stored in array
     print(array)
+    header = 'program reference accession %id coverage k start end \n'
     with open('master_table.txt', 'a') as master:
+        master.write(header)
         master.writelines([" ".join(i) + "\n" for i in array])
-    # array is transformed into .txt file with each line representing a row on the hit table
-
+    # array is transformed into .txt file with each line representing a row on the hit table + header
 
 if __name__ == "__main__":
     get_data()
