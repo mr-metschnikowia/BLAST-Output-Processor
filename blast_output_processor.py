@@ -64,7 +64,6 @@ def get_data():
             qc_end = title_line.find('cover') + 3
             qc = x[qc_start:qc_end]
             qc = "".join([i for i in qc if i.isalnum()])
-
         # retrieves query cover based on position of column title
         def find_id(x):
             global title_line
@@ -72,7 +71,6 @@ def get_data():
             id_start = title_line.find('Ident')
             id_end = title_line.find('Ident') + 5
             id = x[id_start:id_end]
-
         # retrieves percentage identity based on position of column title
         def find_acc(x):
             global title_line
@@ -82,7 +80,6 @@ def get_data():
             acc = x[acc_start:acc_end]
             split_em_up = acc.split(' ')
             acc = split_em_up[0]
-
         # retrieves accession code based on position of column title
         row = []
         x = 0
@@ -103,12 +100,21 @@ def get_data():
         # iterates through each line of the file
         # program, reference, accession, % id, coverage, k, gene start and gene end are obtained for each row in hit table
         # information for each row is stored in array
-    print(array)
-    header = 'program reference accession %id coverage k start end \n'
-    with open('master_table.txt', 'a') as master:
-        master.write(header)
-        master.writelines([" ".join(i) + "\n" for i in array])
-    # array is transformed into .txt file with each line representing a row on the hit table + header
+    dictionary = dict()
+    for i in array:
+        key = (i[0])
+        dictionary[key] = dictionary[key] + [i] if dictionary.get(key) else [i]
+    # array is transformed into a dictionary, separated by program
+    header = 'reference accession %id coverage k start end \n'
+    for key in dictionary:
+        file_name = key + '.txt'
+        key_value = dictionary[key]
+        for listo in key_value:
+            removal = listo.pop(0)
+        with open(file_name, 'a') as file:
+            file.write(header)
+            file.writelines([" ".join(i) + "\n" for i in key_value])
+   # Data from each key value (= array) is stored in a separate .txt file
 
 if __name__ == "__main__":
     get_data()
